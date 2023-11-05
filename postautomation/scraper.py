@@ -12,6 +12,9 @@ from postautomation.handlers.base import Handler
 class Scraper:
     handlers: List[Handler]
 
+    def __init__(self, handlers: List[Handler]):
+        self.handlers = handlers
+
     def scrape(self, url: str) -> PostData:
         domain = urlparse(url).netloc
         try:

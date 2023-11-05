@@ -4,7 +4,7 @@ import imagehash
 import requests
 from PIL import UnidentifiedImageError, Image
 from plemmy import LemmyHttp
-from plemmy.responses import GetPostResponse, GetPostsResponse, GetCommunityResponse
+from plemmy.responses import GetPostsResponse, GetCommunityResponse
 
 from postautomation.data import MonitorPersistence
 

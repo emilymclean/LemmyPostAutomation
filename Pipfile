@@ -12,6 +12,7 @@ sqlalchemy = "*"
 alembic = "*"
 requests = "*"
 pillow = "*"
+pandas = "*"
 
 [dev-packages]
 

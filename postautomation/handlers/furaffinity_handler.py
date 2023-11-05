@@ -28,5 +28,6 @@ class FuraffinityHandler(Handler):
             url,
             title,
             artist,
-            img_url
+            img_url,
+            True
         )

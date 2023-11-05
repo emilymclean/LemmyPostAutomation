@@ -23,5 +23,6 @@ class E621Handler(Handler):
             url,
             None,
             artist,
-            img_url
+            img_url,
+            True
         )
