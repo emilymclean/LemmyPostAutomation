@@ -14,7 +14,7 @@ class E621Handler(Handler):
         artist = str(document.find(
             "a",
             {"itemprop": "author"},
-        ).contents[0])
+        ).contents[0]).replace(" (artist)", "")
         img_url = document.find(
             "section", {"id": "image-container"},
         )["data-file-url"]
