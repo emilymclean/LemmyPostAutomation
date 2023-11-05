@@ -10,6 +10,8 @@ beautifulsoup4 = "*"
 croniter = "*"
 sqlalchemy = "*"
 alembic = "*"
+requests = "*"
+pillow = "*"
 
 [dev-packages]
 
