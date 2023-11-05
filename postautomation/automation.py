@@ -16,6 +16,7 @@ from postautomation.candidate import CandidateProvider, CSVCandidateProvider
 from postautomation.handlers.e621_handler import E621Handler
 from postautomation.handlers.furaffinity_handler import FuraffinityHandler
 from postautomation.monitor import PostMonitor
+from postautomation.reconnection_manager import ReconnectionDelayManager
 from postautomation.scraper import Scraper
 from postautomation.uploader import Uploader, CatboxUploader
 
@@ -28,6 +29,7 @@ class PostAutomation:
     candidate_provider: CandidateProvider
     cron: Optional[croniter]
     uploader: Uploader
+    reconnection_manager = ReconnectionDelayManager()
 
     def __init__(
             self,
@@ -69,9 +71,20 @@ class PostAutomation:
             sleep_time = (next_run - datetime.now()).seconds
             print(f"Sleeping for {sleep_time}")
             sleep(sleep_time)
+            self.candidate_provider.refresh_candidates()
             self.run_once()
 
     def run_once(self):
+        while True:
+            try:
+                self._run_once()
+                self.reconnection_manager.reset()
+                break
+            except Exception:
+                print(traceback.format_exc())
+                self.reconnection_manager.wait()
+
+    def _run_once(self):
         print("Updating database")
         self.monitor.update_database()
 

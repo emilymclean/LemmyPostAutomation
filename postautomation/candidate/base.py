@@ -11,3 +11,6 @@ class CandidateProvider(ABC):
 
     def remove_candidate(self, candidate: PostCandidate):
         pass
+
+    def refresh_candidates(self):
+        pass

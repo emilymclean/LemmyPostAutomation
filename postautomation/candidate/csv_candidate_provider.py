@@ -13,7 +13,7 @@ class CSVCandidateProvider(CandidateProvider):
 
     def __init__(self, file_name: str):
         self.file_name = file_name
-        self.df = pandas.read_csv(self.file_name, header=0)
+        self.refresh_candidates()
 
     def list_candidates(self, page_token: Optional[str]) -> (List[PostCandidate], Optional[str]):
         return [PostCandidate.from_dataframe(row) for row in self.df.to_dict(orient="records")], None
@@ -23,5 +23,7 @@ class CSVCandidateProvider(CandidateProvider):
         with open(self.file_name, "w") as f:
             f.write(self.df.to_csv(index=False))
 
+    def refresh_candidates(self):
+        self.df = pandas.read_csv(self.file_name, header=0)
 
 
