@@ -49,7 +49,7 @@ class PostMonitor:
 
                 self.monitor_persistence.record_phash(self.community_name, phash, post.url, post.id)
 
-            if len(posts) < 25:
+            if len(posts) < 10:
                 break
 
             current_page += 1
