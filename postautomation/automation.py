@@ -91,18 +91,20 @@ class PostAutomation:
         print("Making a post")
         candidates: List[PostCandidate] = self.candidate_provider.list_candidates(None)[0]
         chosen: Optional[PostData] = None
+        chosen_candidate: Optional[PostCandidate] = None
         chosen_image: Optional[Image] = None
         for candidate in candidates:
             scraped = self.scraper.scrape(candidate.url)
             image = Image.open(BytesIO(requests.get(scraped.image_url).content))
+            
             if not self.monitor.has_been_posted(image):
                 if scraped.title is None:
                     scraped.title = candidate.title
                 if scraped.content_warnings is None:
                     scraped.content_warnings = candidate.content_warnings
                 chosen = scraped
+                chosen_candidate = candidate
                 chosen_image = image
-                self.candidate_provider.remove_candidate(candidate)
                 break
 
         if chosen is None:
@@ -127,3 +129,4 @@ class PostAutomation:
             nsfw=chosen.nsfw,
             url=image_url
         )
+        self.candidate_provider.remove_candidate(chosen_candidate)
