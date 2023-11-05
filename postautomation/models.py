@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from tkinter import Image
 from typing import Optional
 
 

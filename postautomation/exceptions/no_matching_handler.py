@@ -1,0 +1,3 @@
+
+class NoMatchingHandler(Exception):
+    pass

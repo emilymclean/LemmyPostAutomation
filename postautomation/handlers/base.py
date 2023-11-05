@@ -3,7 +3,7 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 
-from src import PostCandidate
+from postautomation import PostCandidate
 
 
 class Handler(ABC):

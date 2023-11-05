@@ -2,8 +2,8 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 
-from src import PostCandidate
-from src.handlers.base import Handler
+from postautomation import PostCandidate
+from postautomation.handlers.base import Handler
 
 
 class E621Handler(Handler):
@@ -14,10 +14,10 @@ class E621Handler(Handler):
         artist = str(document.find(
             "a",
             {"itemprop": "author"},
-        ).contents)
+        ).contents[0])
         img_url = document.find(
-            "meta", property="og:image"
-        )["content"].replace("/sample","")
+            "section", {"id": "image-container"},
+        )["data-file-url"]
 
         return PostCandidate(
             url,
@@ -25,4 +25,3 @@ class E621Handler(Handler):
             artist,
             img_url
         )
-    
