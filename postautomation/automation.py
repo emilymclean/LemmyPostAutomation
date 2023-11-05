@@ -98,6 +98,8 @@ class PostAutomation:
             if not self.monitor.has_been_posted(image):
                 if scraped.title is None:
                     scraped.title = candidate.title
+                if scraped.content_warnings is None:
+                    scraped.content_warnings = candidate.content_warnings
                 chosen = scraped
                 chosen_image = image
                 self.candidate_provider.remove_candidate(candidate)
@@ -114,9 +116,13 @@ class PostAutomation:
             print(traceback.format_exc())
             image_url = chosen.image_url
 
+        content_warning = ""
+        if chosen.content_warnings is not None and len(chosen.content_warnings) > 0:
+            content_warning = "[" + ", ".join(chosen.content_warnings) + "] "
+
         self.lemmy.create_post(
             self.community_id,
-            f"{chosen.title} ({chosen.artist})",
+            f"{chosen.title} {content_warning}({chosen.artist})",
             f"[Source]({chosen.url})",
             nsfw=chosen.nsfw,
             url=image_url
