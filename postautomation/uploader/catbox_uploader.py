@@ -13,12 +13,19 @@ class CatboxUploader(Uploader):
         b = io.BytesIO()
         try:
             image.save(b, "jpeg")
+            mime = "image/jpeg"
         except OSError:
             image.save(b, "png")
-        result = requests.post(self.api_base, files={
+            mime = "image/png"
+
+        result = requests.post(self.api_base, data={
             "reqtype": "fileupload",
-            "fileToUpload": b.getvalue()
+        }, files={
+            "fileToUpload": (f"image.{mime.split('/')[1]}", b.getvalue(), mime)
         })
 
-        print(result.content)
-        return ""
+        content = result.content.decode("utf-8")
+        if not content.startswith("http"):
+            raise OSError(content)
+        print(f"Image uploaded @ {content}")
+        return content

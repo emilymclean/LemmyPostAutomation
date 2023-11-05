@@ -101,8 +101,6 @@ class PostAutomation:
             print(traceback.format_exc())
             image_url = chosen.image_url
 
-        return
-
         self.lemmy.create_post(
             self.community_id,
             f"{chosen.title} ({chosen.artist})",
