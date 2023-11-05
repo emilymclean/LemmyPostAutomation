@@ -10,7 +10,7 @@ from postautomation.handlers.base import Handler
 class FuraffinityHandler(Handler):
 
     def supports_domain(self, domain: str) -> bool:
-        return domain == "furaffinity.net"
+        return domain == "furaffinity.net" or domain == "www.furaffinity.net"
 
     def setup_cookies(self) -> Dict[str, str]:
         return {
@@ -20,8 +20,8 @@ class FuraffinityHandler(Handler):
 
     def scrape(self, url: str, document: BeautifulSoup) -> PostCandidate:
         artist = document.find("meta", property="og:title")["content"].split(" by ")[1]
-        img_container = document.find("img", {"id": "data-fullview-postautomation"})
-        img_url = img_container["data-fullview-postautomation"]
+        img_container = document.find("img", {"id": "submissionImg"})
+        img_url = "https:" + img_container["data-fullview-src"]
         title = img_container["alt"]
 
         return PostCandidate(
