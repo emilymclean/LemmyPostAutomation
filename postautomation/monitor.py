@@ -30,7 +30,7 @@ class PostMonitor:
         initial_page = current_page = self.monitor_persistence.get_current_page(self.community_name)
         while True:
             print(f"Scanning page {current_page}")
-            response = GetPostsResponse(self.lemmy.get_posts(community_id=self.community_id, page=current_page, sort="Old"))
+            response = GetPostsResponse(self.lemmy.get_posts(community_id=self.community_id, page=current_page, limit=10, sort="Old"))
             posts = response.posts
             for post in posts:
                 post = post.post
