@@ -7,6 +7,9 @@ name = "pypi"
 imagehash = "*"
 plemmy = "*"
 beautifulsoup4 = "*"
+croniter = "*"
+sqlalchemy = "*"
+alembic = "*"
 
 [dev-packages]
 

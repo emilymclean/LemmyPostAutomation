@@ -2,7 +2,7 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 
-from postautomation import PostCandidate
+from postautomation import PostData
 from postautomation.handlers.base import Handler
 
 
@@ -10,7 +10,7 @@ class E621Handler(Handler):
     def supports_domain(self, domain: str) -> bool:
         return domain == "e621.net"
 
-    def scrape(self, url: str, document: BeautifulSoup) -> PostCandidate:
+    def scrape(self, url: str, document: BeautifulSoup) -> PostData:
         artist = str(document.find(
             "a",
             {"itemprop": "author"},
@@ -19,7 +19,7 @@ class E621Handler(Handler):
             "section", {"id": "image-container"},
         )["data-file-url"]
 
-        return PostCandidate(
+        return PostData(
             url,
             None,
             artist,

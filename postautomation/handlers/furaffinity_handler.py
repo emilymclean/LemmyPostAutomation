@@ -3,7 +3,7 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 
-from postautomation import PostCandidate
+from postautomation import PostData
 from postautomation.handlers.base import Handler
 
 
@@ -18,13 +18,13 @@ class FuraffinityHandler(Handler):
             "b": os.environ["furaffinity_b"]
         }
 
-    def scrape(self, url: str, document: BeautifulSoup) -> PostCandidate:
+    def scrape(self, url: str, document: BeautifulSoup) -> PostData:
         artist = document.find("meta", property="og:title")["content"].split(" by ")[1]
         img_container = document.find("img", {"id": "submissionImg"})
         img_url = "https:" + img_container["data-fullview-src"]
         title = img_container["alt"]
 
-        return PostCandidate(
+        return PostData(
             url,
             title,
             artist,

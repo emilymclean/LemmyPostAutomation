@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 import urllib3
 from bs4 import BeautifulSoup
 
-from postautomation import PostCandidate
+from postautomation import PostData
 from postautomation.exceptions import NoMatchingHandler
 from postautomation.handlers.base import Handler
 
@@ -12,7 +12,7 @@ from postautomation.handlers.base import Handler
 class Scraper:
     handlers: List[Handler]
 
-    def scrape(self, url: str) -> PostCandidate:
+    def scrape(self, url: str) -> PostData:
         domain = urlparse(url).netloc
         try:
             handler = next(x for x in self.handlers if x.supports_domain(domain))

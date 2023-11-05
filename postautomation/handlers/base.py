@@ -3,7 +3,7 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 
-from postautomation import PostCandidate
+from postautomation import PostData
 
 
 class Handler(ABC):
@@ -14,5 +14,5 @@ class Handler(ABC):
     def setup_cookies(self) -> Dict[str, str]:
         return {}
 
-    def scrape(self, url: str, document: BeautifulSoup) -> PostCandidate:
+    def scrape(self, url: str, document: BeautifulSoup) -> PostData:
         pass
