@@ -24,6 +24,10 @@ class CSVCandidateProvider(CandidateProvider):
             f.write(self.df.to_csv(index=False))
 
     def refresh_candidates(self):
-        self.df = pandas.read_csv(self.file_name, header=0)
+        self.df = pandas.read_csv(self.file_name, header=0, dtype={
+            'url': 'string',
+            'title': 'string',
+            'content_warnings': 'string'
+        })
 
 

@@ -25,5 +25,5 @@ class PostCandidate:
         return PostCandidate(
             url=df["url"],
             title=df["title"] if "title" in df else None,
-            content_warnings=df["content_warnings"].split(";") if "content_warnings" in df else None
+            content_warnings=df["content_warnings"].split(";") if "content_warnings" in df and df["content_warnings"] != "" else None
         )
