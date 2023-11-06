@@ -66,6 +66,9 @@ class PostAutomation:
         if self.cron is None:
             return
 
+        print("Updating database")
+        self.monitor.update_database()
+
         while True:
             next_run: datetime = self.cron.get_next(datetime)
             sleep_time = (next_run - datetime.now()).total_seconds()
