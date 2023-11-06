@@ -64,6 +64,7 @@ class PostAutomation:
 
     def run(self):
         if self.cron is None:
+            print("No cron found, exiting...")
             return
 
         print("Updating database")
