@@ -71,7 +71,7 @@ class PostAutomation:
         self.monitor.update_database()
 
         while True:
-            next_run: datetime = self.cron.get_next(datetime)
+            next_run: datetime = self.cron.get_next(datetime, datetime.now())
             sleep_time = (next_run - datetime.now()).total_seconds()
             print(f"Sleeping for {sleep_time} (until {next_run})")
             sleep(sleep_time)
