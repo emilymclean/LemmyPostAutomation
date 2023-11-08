@@ -74,7 +74,8 @@ class PostAutomation:
             next_run: datetime = self.cron.get_next(datetime, datetime.now())
             sleep_time = (next_run - datetime.now()).total_seconds()
             print(f"Sleeping for {sleep_time} (until {next_run})")
-            sleep(sleep_time)
+            if sleep_time > 0:
+                sleep(sleep_time)
             self.candidate_provider.refresh_candidates()
             self.run_once()
 
