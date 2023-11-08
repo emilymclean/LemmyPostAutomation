@@ -13,6 +13,7 @@ from plemmy.responses import GetCommunityResponse
 
 from postautomation import PostCandidate, PostData
 from postautomation.candidate import CandidateProvider, CSVCandidateProvider
+from postautomation.handlers.base import Handler
 from postautomation.handlers.e621_handler import E621Handler
 from postautomation.handlers.furaffinity_handler import FuraffinityHandler
 from postautomation.monitor import PostMonitor
@@ -51,14 +52,21 @@ class PostAutomation:
             self.cron = croniter(cron, datetime.now())
 
     @staticmethod
-    def create(lemmy: LemmyHttp, community_name: str, csv_file_location: str, cron: Optional[str] = None):
+    def create(
+        lemmy: LemmyHttp,
+        community_name: str,
+        csv_file_location: str,
+        cron: Optional[str] = None,
+        handlers: Optional[List[Handler]] = None,
+        uploader: Uploader = CatboxUploader()
+    ):
         return PostAutomation(
             lemmy,
             community_name,
             PostMonitor(community_name, lemmy),
-            Scraper([E621Handler(), FuraffinityHandler()]),
+            Scraper([E621Handler(), FuraffinityHandler()] if handlers is None else handlers),
             CSVCandidateProvider(csv_file_location),
-            CatboxUploader(),
+            uploader,
             cron
         )
 
