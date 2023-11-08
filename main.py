@@ -2,7 +2,7 @@ import os
 
 from plemmy import LemmyHttp
 
-from postautomation.automation import PostAutomation
+from postautomation import PostAutomation
 
 if __name__ == "__main__":
     lemmy = LemmyHttp(os.environ["instance"])
