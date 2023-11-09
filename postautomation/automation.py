@@ -1,7 +1,6 @@
 import traceback
 from datetime import datetime
 from io import BytesIO
-from os import wait
 from time import sleep
 from typing import List, Optional
 
