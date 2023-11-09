@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  lemmy-automation:
+    image: ghcr.io/emilymclean/lemmypostautomation:latest
+    container_name: lemmy-automation
+    environment:
+      - username=username
+      - password=hunter2
+      - instance=https://lemmy.blahaj.zone
+      - community=transfem
+      - schedule=0 6 * * *
+    volumes:
+      - ./data/lemmypostautomation/data:/app/data
