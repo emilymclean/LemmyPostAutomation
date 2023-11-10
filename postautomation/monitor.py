@@ -28,11 +28,19 @@ class PostMonitor:
 
     def update_database(self):
         initial_page = current_page = self.monitor_persistence.get_current_page(self.community_name)
+        prevent_backtracking = False
         while True:
             print(f"Scanning page {current_page}")
             response = GetPostsResponse(self.lemmy.get_posts(community_id=self.community_id, page=current_page, limit=10, sort="Old"))
             posts = response.posts
+
+            # We've gone too far, backtrack
+            if len(posts) == 0 and not prevent_backtracking:
+                current_page -= 1
+                continue
+
             for post in posts:
+                prevent_backtracking = True
                 post = post.post
                 print(f"Processing {post.name} (url = {post.url})")
                 if self.monitor_persistence.has_processed(post.id):
