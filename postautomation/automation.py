@@ -40,7 +40,8 @@ class PostAutomation:
             scraper: Scraper,
             candidate_provider: CandidateProvider,
             uploader: Uploader,
-            cron: Optional[str]
+            cron: Optional[str],
+            mock: bool = False
     ):
         self.lemmy = lemmy
         self.community_id = GetCommunityResponse(lemmy.get_community(name=community_name)).community_view.community.id
@@ -48,6 +49,7 @@ class PostAutomation:
         self.scraper = scraper
         self.candidate_provider = candidate_provider
         self.uploader = uploader
+        self.mock = mock
         if cron is not None:
             self.cron = croniter(cron, datetime.now())
 
