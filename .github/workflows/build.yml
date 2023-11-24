@@ -2,8 +2,10 @@ name: Build
 
 on:
   push:
-    branches: [ main, develop ]
-  workflow_dispatch:
+    branches: [ "main", "develop", "release/**" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
 
 permissions:
   contents: read
@@ -51,7 +53,7 @@ jobs:
           tag_name: v${{ needs.version.outputs.version }}
           release_name: lemmypostautomation-${{ needs.version.outputs.version }}
           draft: false
-          prerelease: ${{ github.ref == 'refs/heads/develop' }}
+          prerelease: ${{ github.ref != 'refs/heads/main' }}
       - name: Create Backend ZIP deployment package
         run: zip -r lemmypostautomation-${{ needs.version.outputs.version }}.zip . -x@exclude.lst;
       - name: Upload ZIP as Release Asset
