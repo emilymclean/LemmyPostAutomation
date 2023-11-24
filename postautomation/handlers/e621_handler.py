@@ -1,5 +1,3 @@
-from typing import Dict
-
 from bs4 import BeautifulSoup
 
 from postautomation import PostData

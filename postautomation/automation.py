@@ -1,7 +1,6 @@
 import traceback
 from datetime import datetime
 from io import BytesIO
-from os import wait
 from time import sleep
 from typing import List, Optional
 
@@ -31,6 +30,7 @@ class PostAutomation:
     cron: Optional[croniter]
     uploader: Uploader
     reconnection_manager = ReconnectionDelayManager()
+    mock: bool
 
     def __init__(
             self,
@@ -119,27 +119,31 @@ class PostAutomation:
                 chosen_candidate = candidate
                 chosen_image = image
                 break
+            else:
+                self.candidate_provider.remove_candidate(candidate, True)
 
         if chosen is None:
             print("No candidates found")
             return
 
         print("Uploading image")
-        try:
-            image_url = self.uploader.upload(chosen.image_url, chosen_image)
-        except Exception:
-            print(traceback.format_exc())
-            image_url = chosen.image_url
+        if not self.mock:
+            try:
+                image_url = self.uploader.upload(chosen.image_url, chosen_image)
+            except Exception:
+                print(traceback.format_exc())
+                image_url = chosen.image_url
 
         content_warning = ""
         if chosen.content_warnings is not None and len(chosen.content_warnings) > 0:
             content_warning = "[" + ", ".join(chosen.content_warnings) + "] "
 
-        self.lemmy.create_post(
-            self.community_id,
-            f"{chosen.title} {content_warning}({chosen.artist})",
-            f"[Source]({chosen.url})",
-            nsfw=chosen.nsfw,
-            url=image_url
-        )
+        if not self.mock:
+            self.lemmy.create_post(
+                self.community_id,
+                f"{chosen.title} {content_warning}({chosen.artist})",
+                f"[Source]({chosen.url})",
+                nsfw=chosen.nsfw,
+                url=image_url
+            )
         self.candidate_provider.remove_candidate(chosen_candidate)

@@ -9,7 +9,7 @@ class CandidateProvider(ABC):
     def list_candidates(self, page_token: Optional[str]) -> (List[PostCandidate], Optional[str]):
         pass
 
-    def remove_candidate(self, candidate: PostCandidate):
+    def remove_candidate(self, candidate: PostCandidate, unsuitable: bool = False):
         pass
 
     def refresh_candidates(self):
