@@ -27,7 +27,7 @@ class FuraffinityHandler(Handler):
         return PostData(
             url,
             title,
-            artist,
+            [artist],
             img_url,
             True
         )
