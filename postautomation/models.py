@@ -6,7 +6,7 @@ from typing import Optional, Dict, List
 class PostData:
     url: str
     title: Optional[str]
-    artist: str
+    artists: List[str]
     image_url: str
     nsfw: bool
     content_warnings: Optional[List[str]] = None

@@ -143,7 +143,7 @@ class PostAutomation:
         if not self.mock:
             self.lemmy.create_post(
                 self.community_id,
-                f"{chosen.title} {content_warning}({chosen.artist})",
+                f"{chosen.title} {content_warning}({', '.join(chosen.artists)})",
                 f"[Source]({chosen.url})",
                 nsfw=chosen.nsfw,
                 url=image_url
