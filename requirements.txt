@@ -22,4 +22,4 @@ soupsieve==2.5 ; python_version >= '3.8'
 sqlalchemy==2.0.28
 typing-extensions==4.9.0 ; python_version >= '3.8'
 tzdata==2024.1 ; python_version >= '2'
-urllib3==2.2.1 ; python_version >= '3.8'
+urllib3==2.2.2 ; python_version >= '3.8'
