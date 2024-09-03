@@ -1,6 +1,6 @@
 import os
 
-from plemmy import LemmyHttp
+from pythonlemmy import LemmyHttp
 
 from postautomation import PostAutomation
 
