@@ -11,7 +11,7 @@ images from data/post_list.csv to transfem every day at 6am:
 ```python
 import os
 
-from plemmy import LemmyHttp
+from pythonlemmy import LemmyHttp
 
 from postautomation import PostAutomation
 

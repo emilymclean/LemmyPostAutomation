@@ -3,8 +3,8 @@ from io import BytesIO
 import imagehash
 import requests
 from PIL import UnidentifiedImageError, Image
-from plemmy import LemmyHttp
-from plemmy.responses import GetPostsResponse, GetCommunityResponse
+from pythonlemmy import LemmyHttp
+from pythonlemmy.responses import GetPostsResponse, GetCommunityResponse
 
 from postautomation.data import MonitorPersistence
 

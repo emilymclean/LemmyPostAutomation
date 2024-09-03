@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 imagehash = "*"
-plemmy = "*"
+pythonlemmy = "==0.1.0"
 beautifulsoup4 = "*"
 croniter = "*"
 sqlalchemy = "*"

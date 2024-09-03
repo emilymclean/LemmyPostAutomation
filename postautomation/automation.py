@@ -7,8 +7,8 @@ from typing import List, Optional
 import requests
 from PIL import Image
 from croniter import croniter
-from plemmy import LemmyHttp
-from plemmy.responses import GetCommunityResponse
+from pythonlemmy import LemmyHttp
+from pythonlemmy.responses import GetCommunityResponse
 
 from postautomation import PostCandidate, PostData
 from postautomation.candidate import CandidateProvider, CSVCandidateProvider
