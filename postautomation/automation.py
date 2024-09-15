@@ -113,10 +113,15 @@ class PostAutomation:
             image = Image.open(BytesIO(requests.get(scraped.image_url).content))
             
             if not self.monitor.has_been_posted(image):
-                if scraped.title is None:
+                if candidate.title is not None:
                     scraped.title = candidate.title
-                if scraped.content_warnings is None:
+                elif scraped.title is None:
+                    print(f"Candidate {scraped.url} does not have a title")
+                    continue
+
+                if candidate.content_warnings is not None:
                     scraped.content_warnings = candidate.content_warnings
+
                 chosen = scraped
                 chosen_candidate = candidate
                 chosen_image = image

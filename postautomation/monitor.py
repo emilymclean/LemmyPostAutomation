@@ -50,7 +50,7 @@ class PostMonitor:
 
                 try:
                     image = Image.open(BytesIO(requests.get(post.url).content))
-                except UnidentifiedImageError:
+                except (UnidentifiedImageError, requests.exceptions.ConnectionError):
                     continue
 
                 phash = str(imagehash.phash(image))
